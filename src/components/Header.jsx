@@ -45,6 +45,7 @@ function Header({ withUserMenu = false }) {
               src={`${import.meta.env.BASE_URL}logo.png`}
               alt="Logo"
               className="h-12 w-auto"
+              onClick={() => navigate("/Home")}
             />
           </div>
 
@@ -53,7 +54,10 @@ function Header({ withUserMenu = false }) {
             <>
               {/* Desktop */}
               <div className="hidden md:flex items-center gap-6" ref={menuRef}>
-                <button className="text-gray-700 hover:text-black">
+                <button
+                  className="text-green-500 hover:text-black font-bold"
+                  onClick={() => navigate("/AllProduct")}
+                >
                   Kategori
                 </button>
 
