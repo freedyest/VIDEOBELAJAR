@@ -8,7 +8,7 @@ import NavButton from "../components/NavButton.jsx";
 import VideoCard from "../components/VideoCard.jsx";
 import FilterNav from "../components/FilterNav.jsx";
 import CourseModal from "../components/CourseModal.jsx";
-
+import FilterSidebar from "../components/FilterSideBar.jsx";
 import {
   fetchCourses,
   setFilter,
@@ -86,10 +86,7 @@ function AllProduct() {
         <div className="w-full">
           <div>
             {/* filter nav */}
-            <FilterNav
-              categories={categories}
-              onFilterChange={(value) => dispatch(setFilter(value))}
-            />
+            <FilterSidebar />
           </div>
           <div>
             {/* tombol create → hanya muncul kalau ada user login */}
