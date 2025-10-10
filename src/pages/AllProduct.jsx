@@ -58,6 +58,9 @@ function AllProduct() {
     }
   };
 
+  const handleFilterChange = (data) => {
+    console.log("filter dari child:", data);
+  };
   const categories = [
     { key: "all", label: "Semua Kelas" },
     { key: "pemasaran", label: "Pemasaran" },
@@ -86,7 +89,7 @@ function AllProduct() {
         <div className="w-full">
           <div>
             {/* filter nav */}
-            <FilterSidebar />
+            <FilterSidebar onFilterChange={handleFilterChange} />
           </div>
           <div>
             {/* tombol create → hanya muncul kalau ada user login */}
