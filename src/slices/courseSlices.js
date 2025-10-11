@@ -5,6 +5,7 @@ import {
   updateCourse,
   deleteCourse,
 } from "../services/api/courseApi";
+import { Sidebar } from "lucide-react";
 
 // Thunk untuk fetch data dari API
 export const fetchCourses = createAsyncThunk(
@@ -47,6 +48,7 @@ const courseSlice = createSlice({
   initialState: {
     list: [],
     filter: "all",
+    sidebarFilter: { bidang: [], harga: [], durasi: [] },
     isModalOpen: false,
     editingCourse: null,
     loading: false,
@@ -54,6 +56,9 @@ const courseSlice = createSlice({
   reducers: {
     setFilter: (state, action) => {
       state.filter = action.payload;
+    },
+    setSidebarFilter: (state, action) => {
+      state.sidebarFilter = action.payload;
     },
     openModal: (state, action) => {
       state.isModalOpen = true;
@@ -90,5 +95,6 @@ const courseSlice = createSlice({
   },
 });
 
-export const { setFilter, openModal, closeModal } = courseSlice.actions;
+export const { setFilter, openModal, closeModal, setSidebarFilter } =
+  courseSlice.actions;
 export default courseSlice.reducer;

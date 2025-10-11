@@ -29,8 +29,13 @@ function FilterSidebar({ onFilterChange }) {
   };
   const handleCheckboxChange2 = (value) => {
     setSelectHarga((prev) => {
-      if (prev.includes(value)) {
-        return prev.filter((item) => item !== value);
+      const exist = prev.some(
+        (item) => item.min === value.min && item.max === value.max
+      );
+      if (exist) {
+        return prev.filter(
+          (item) => !(item.min === value.min && item.max === value.max)
+        );
       } else {
         return [...prev, value];
       }
@@ -39,8 +44,13 @@ function FilterSidebar({ onFilterChange }) {
 
   const handleCheckboxChange3 = (value) => {
     setSelectDurasi((prev) => {
-      if (prev.includes(value)) {
-        return prev.filter((item) => item !== value);
+      const exist = prev.some(
+        (item) => item.min === value.min && item.max === value.max
+      );
+      if (exist) {
+        return prev.filter(
+          (item) => !(item.min === value.min && item.max === value.max)
+        );
       } else {
         return [...prev, value];
       }
@@ -52,8 +62,18 @@ function FilterSidebar({ onFilterChange }) {
     setSelectDurasi([]);
   };
   const bidangList = ["pemasaran", "desain", "pengembangan", "bisnis"];
-  const hargaList = ["0-200k", "200k-400k", "400k-600k", "600k-800k"];
-  const durasiList = ["kurang dari 4 jam", "4-8 jam", "lebih dari 8 jam"];
+  const hargaList = [
+    { label: "0-200k", value: { min: 0, max: 200000 } },
+    { label: "200k-400k", value: { min: 200000, max: 400000 } },
+    { label: "400k-600k", value: { min: 400000, max: 600000 } },
+    { label: "600k-800k", value: { min: 600000, max: 800000 } },
+  ];
+
+  const durasiList = [
+    { label: "kurang dari 4 jam", value: { min: 0, max: 4 } },
+    { label: "4-8 jam", value: { min: 4, max: 8 } },
+    { label: "lebih dari 8 jam", value: { min: 8 } },
+  ];
   return (
     <div className="p-4 bg-white rounded-2xl shadow-lg">
       <div className="flex justify-between items-center mb-4">
@@ -72,11 +92,11 @@ function FilterSidebar({ onFilterChange }) {
           <span>{isOpenBidang ? "▲" : "▼"}</span>
         </button>
         {isOpenBidang && (
-          <div className="space-y-2 px-3">
+          <div className="space-y-2 px-3 pb-4">
             {bidangList.map((bidang) => (
               <label
                 key={bidang}
-                className="flex items-center space-x-2 cursor-pointer"
+                className="flex items-center space-x-2 cursor-pointer "
               >
                 <input
                   type="checkbox"
@@ -104,16 +124,19 @@ function FilterSidebar({ onFilterChange }) {
           <div className="space-y-2 px-3">
             {hargaList.map((harga) => (
               <label
-                key={harga}
+                key={harga.label}
                 className="flex items-center space-x-2 cursor-pointer"
               >
                 <input
                   type="checkbox"
-                  checked={selectHarga.includes(harga)}
-                  onChange={() => handleCheckboxChange2(harga)}
+                  checked={selectHarga.some(
+                    (h) =>
+                      h.min === harga.value.min && h.max === harga.value.max
+                  )}
+                  onChange={() => handleCheckboxChange2(harga.value)}
                   className="accent-green-500"
                 />
-                <span>{harga}</span>
+                <span>{harga.label}</span>
               </label>
             ))}
           </div>
@@ -133,16 +156,19 @@ function FilterSidebar({ onFilterChange }) {
           <div className="space-y-2 px-3">
             {durasiList.map((durasi) => (
               <label
-                key={durasi}
+                key={durasi.label}
                 className="flex items-center space-x-2 cursor-pointer"
               >
                 <input
                   type="checkbox"
-                  checked={selectDurasi.includes(durasi)}
-                  onChange={() => handleCheckboxChange3(durasi)}
+                  checked={selectDurasi.some(
+                    (h) =>
+                      h.min === durasi.value.min && h.max === durasi.value.max
+                  )}
+                  onChange={() => handleCheckboxChange3(durasi.value)}
                   className="accent-green-500"
                 />
-                <span>{durasi}</span>
+                <span>{durasi.label}</span>
               </label>
             ))}
           </div>

@@ -17,13 +17,13 @@ import {
   addCourse,
   editCourse,
   removeCourse,
+  setSidebarFilter,
 } from "../slices/courseSlices.js";
 
 function AllProduct() {
   const dispatch = useDispatch();
-  const { list, filter, isModalOpen, editingCourse, loading } = useSelector(
-    (state) => state.courses
-  );
+  const { list, filter, isModalOpen, sidebarFilter, editingCourse, loading } =
+    useSelector((state) => state.courses);
 
   const storedUser = localStorage.getItem("currentUser");
   const currentUser = storedUser ? JSON.parse(storedUser) : null;
@@ -34,10 +34,29 @@ function AllProduct() {
   }, [dispatch]);
 
   // filtered courses
-  const filteredCourses =
-    filter === "all"
-      ? list
-      : list.filter((course) => course.category === filter);
+  const filteredCourses = list.filter((course) => {
+    // FilterNav
+    const matchNav = filter === "all" || course.category === filter;
+
+    // FilterSidebar
+    const matchBidang =
+      sidebarFilter.bidang.length === 0 ||
+      sidebarFilter.bidang.includes(course.category.toLowerCase());
+
+    const matchHarga =
+      sidebarFilter.harga.length === 0 ||
+      sidebarFilter.harga.some((range) => {
+        return course.price >= range.min && course.price <= range.max;
+      });
+
+    const matchDurasi =
+      sidebarFilter.durasi.length === 0 ||
+      sidebarFilter.durasi.some((durasi) => {
+        return course.duration >= durasi.min && course.duration <= durasi.max;
+      });
+
+    return matchNav && matchBidang && matchHarga && matchDurasi;
+  });
 
   // handler
   const handleCreate = () => dispatch(openModal(null));
@@ -59,7 +78,7 @@ function AllProduct() {
   };
 
   const handleFilterChange = (data) => {
-    console.log("filter dari child:", data);
+    dispatch(setSidebarFilter(data));
   };
   const categories = [
     { key: "all", label: "Semua Kelas" },
