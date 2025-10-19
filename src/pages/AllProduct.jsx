@@ -1,6 +1,5 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
 
 import Header from "../components/Header.jsx";
 import Footer from "../components/Footer.jsx";
@@ -10,10 +9,10 @@ import FilterNav from "../components/FilterNav.jsx";
 import CourseModal from "../components/CourseModal.jsx";
 import FilterSidebar from "../components/FilterSideBar.jsx";
 import SearchCourse from "../components/SearchCourse.jsx";
-
+import SortCourse from "../components/FilterSort.jsx";
 import {
   fetchCourses,
-  setFilter,
+  setFilterSort,
   openModal,
   closeModal,
   addCourse,
@@ -21,18 +20,12 @@ import {
   removeCourse,
   setSidebarFilter,
 } from "../slices/courseSlices.js";
+import Sort from "../components/FilterSort.jsx";
 
 function AllProduct() {
   const dispatch = useDispatch();
-  const {
-    list,
-    filter,
-    isModalOpen,
-    sidebarFilter,
-    editingCourse,
-    loading,
-    search,
-  } = useSelector((state) => state.courses);
+  const { list, filter, isModalOpen, sidebarFilter, editingCourse, search } =
+    useSelector((state) => state.courses);
 
   const storedUser = localStorage.getItem("currentUser");
   const currentUser = storedUser ? JSON.parse(storedUser) : null;
@@ -41,8 +34,9 @@ function AllProduct() {
   useEffect(() => {
     dispatch(fetchCourses());
   }, [dispatch]);
+  // filtered + sorted courses
+  const { sort } = useSelector((state) => state.courses); // ambil state sort juga
 
-  // filtered courses
   const filteredCourses = list.filter((course) => {
     // FilterNav
     const matchNav = filter === "all" || course.category === filter;
@@ -72,7 +66,18 @@ function AllProduct() {
 
     return matchNav && matchBidang && matchHarga && matchDurasi && matchSearch;
   });
-  //search
+
+  // 🧠 Sorting logic
+  const sortedCourses = [...filteredCourses];
+  if (sort === "harga_asc") {
+    sortedCourses.sort((a, b) => a.price - b.price);
+  } else if (sort === "harga_desc") {
+    sortedCourses.sort((a, b) => b.price - a.price);
+  } else if (sort === "nama_asc") {
+    sortedCourses.sort((a, b) => a.title.localeCompare(b.title));
+  } else if (sort === "nama_desc") {
+    sortedCourses.sort((a, b) => b.title.localeCompare(a.title));
+  }
 
   // handler
   const handleCreate = () => dispatch(openModal(null));
@@ -127,6 +132,7 @@ function AllProduct() {
             <FilterSidebar onFilterChange={handleFilterChange} />
           </div>
           <div>
+            <SortCourse />
             <SearchCourse />
           </div>
           <div>
@@ -145,7 +151,7 @@ function AllProduct() {
             {/* video course */}
             <section id="videocourse" className="w-full mt-10">
               <div className="w-full md:flex flex-wrap justify-evenly gap-6">
-                {filteredCourses.map((course) => (
+                {sortedCourses.map((course) => (
                   <VideoCard
                     key={course.id}
                     image={course.image}

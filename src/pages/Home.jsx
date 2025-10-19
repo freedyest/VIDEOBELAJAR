@@ -1,6 +1,5 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
 
 import Header from "../components/Header.jsx";
 import Footer from "../components/Footer.jsx";
@@ -21,7 +20,7 @@ import {
 
 function Home() {
   const dispatch = useDispatch();
-  const { list, filter, isModalOpen, editingCourse, loading } = useSelector(
+  const { list, filter, isModalOpen, editingCourse } = useSelector(
     (state) => state.courses
   );
 
