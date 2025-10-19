@@ -52,10 +52,18 @@ const courseSlice = createSlice({
     isModalOpen: false,
     editingCourse: null,
     loading: false,
+    search: "",
+    sort: "",
   },
   reducers: {
     setFilter: (state, action) => {
       state.filter = action.payload;
+    },
+    setSearch: (state, action) => {
+      state.search = action.payload;
+    },
+    setFilterSort: (state, action) => {
+      state.sort = action.payload;
     },
     setSidebarFilter: (state, action) => {
       state.sidebarFilter = action.payload;
@@ -95,6 +103,12 @@ const courseSlice = createSlice({
   },
 });
 
-export const { setFilter, openModal, closeModal, setSidebarFilter } =
-  courseSlice.actions;
+export const {
+  setFilter,
+  openModal,
+  closeModal,
+  setSidebarFilter,
+  setSearch,
+  setFilterSort,
+} = courseSlice.actions;
 export default courseSlice.reducer;

@@ -9,6 +9,8 @@ import VideoCard from "../components/VideoCard.jsx";
 import FilterNav from "../components/FilterNav.jsx";
 import CourseModal from "../components/CourseModal.jsx";
 import FilterSidebar from "../components/FilterSideBar.jsx";
+import SearchCourse from "../components/SearchCourse.jsx";
+
 import {
   fetchCourses,
   setFilter,
@@ -22,8 +24,15 @@ import {
 
 function AllProduct() {
   const dispatch = useDispatch();
-  const { list, filter, isModalOpen, sidebarFilter, editingCourse, loading } =
-    useSelector((state) => state.courses);
+  const {
+    list,
+    filter,
+    isModalOpen,
+    sidebarFilter,
+    editingCourse,
+    loading,
+    search,
+  } = useSelector((state) => state.courses);
 
   const storedUser = localStorage.getItem("currentUser");
   const currentUser = storedUser ? JSON.parse(storedUser) : null;
@@ -55,8 +64,15 @@ function AllProduct() {
         return course.duration >= durasi.min && course.duration <= durasi.max;
       });
 
-    return matchNav && matchBidang && matchHarga && matchDurasi;
+    // 🔍 search filter
+    const matchSearch =
+      search.trim() === "" ||
+      course.title.toLowerCase().includes(search.toLowerCase()) ||
+      course.desc.toLowerCase().includes(search.toLowerCase());
+
+    return matchNav && matchBidang && matchHarga && matchDurasi && matchSearch;
   });
+  //search
 
   // handler
   const handleCreate = () => dispatch(openModal(null));
@@ -109,6 +125,9 @@ function AllProduct() {
           <div>
             {/* filter nav */}
             <FilterSidebar onFilterChange={handleFilterChange} />
+          </div>
+          <div>
+            <SearchCourse />
           </div>
           <div>
             {/* tombol create → hanya muncul kalau ada user login */}
