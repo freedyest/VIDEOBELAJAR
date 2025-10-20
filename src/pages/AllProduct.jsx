@@ -126,12 +126,12 @@ function AllProduct() {
             </p>
           </div>
         </section>
-        <div className="w-full">
+        <div className="w-full ">
           <div>
             {/* filter nav */}
             <FilterSidebar onFilterChange={handleFilterChange} />
           </div>
-          <div>
+          <div className="flex  items-center gap-x-3 justify-between">
             <SortCourse />
             <SearchCourse />
           </div>

@@ -11,18 +11,17 @@ export default function Sort() {
   };
 
   return (
-    <div className="flex items-center gap-2 my-4">
-      <label className="font-medium text-gray-700">Urutkan:</label>
+    <div className="flex items-center gap-2 my-4 ">
       <select
         value={sort}
         onChange={handleChange}
-        className="border rounded-lg px-3 py-2 text-gray-800"
+        className="border rounded-lg px-3 py-2 text-gray-800 bg-white shadow-md"
       >
-        <option value="">Default</option>
-        <option value="harga_asc">Harga: Murah ke Mahal</option>
-        <option value="harga_desc">Harga: Mahal ke Murah</option>
-        <option value="nama_asc">Nama: A-Z</option>
-        <option value="nama_desc">Nama: Z-A</option>
+        <option value="">Urutkan</option>
+        <option value="harga_asc">Murah ke Mahal</option>
+        <option value="harga_desc">Mahal ke Murah</option>
+        <option value="nama_asc">A-Z</option>
+        <option value="nama_desc">Z-A</option>
       </select>
     </div>
   );
