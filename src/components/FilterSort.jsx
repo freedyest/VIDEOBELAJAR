@@ -15,7 +15,7 @@ export default function Sort() {
       <select
         value={sort}
         onChange={handleChange}
-        className="border rounded-lg px-3 py-2 text-gray-800 bg-white shadow-md"
+        className="border rounded-lg px-3 py-2 border-gray-300 text-gray-800 bg-white shadow-md"
       >
         <option value="">Urutkan</option>
         <option value="harga_asc">Murah ke Mahal</option>

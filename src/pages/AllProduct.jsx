@@ -126,87 +126,89 @@ function AllProduct() {
             </p>
           </div>
         </section>
-        <div className="w-full ">
-          <div>
+        <div className="w-full md:flex">
+          <div className="md:w-1/3">
             {/* filter nav */}
             <FilterSidebar onFilterChange={handleFilterChange} />
           </div>
-          <div className="flex  items-center gap-x-3 justify-between">
-            <SortCourse />
-            <SearchCourse />
-          </div>
-          <div>
-            {/* tombol create → hanya muncul kalau ada user login */}
-            {currentUser?.email && (
-              <div className="my-6">
-                <button
-                  onClick={handleCreate}
-                  className="px-4 py-2 bg-[#F64920] font-semibold text-white rounded hover:bg-white hover:text-[#F64920]"
-                >
-                  + Create Course
-                </button>
-              </div>
-            )}
+          <div className="md:w-2/3 ">
+            <div className="flex  items-center gap-x-3 justify-between">
+              <SortCourse />
+              <SearchCourse />
+            </div>
+            <div>
+              {/* tombol create → hanya muncul kalau ada user login */}
+              {currentUser?.email && (
+                <div className="my-6">
+                  <button
+                    onClick={handleCreate}
+                    className="px-4 py-2 bg-[#F64920] font-semibold text-white rounded hover:bg-white hover:text-[#F64920]"
+                  >
+                    + Create Course
+                  </button>
+                </div>
+              )}
 
-            {/* video course */}
-            <section id="videocourse" className="w-full mt-10">
-              <div className="w-full md:flex flex-wrap justify-evenly gap-6">
-                {sortedCourses.map((course) => (
-                  <VideoCard
-                    key={course.id}
-                    image={course.image}
-                    title={course.title}
-                    description={course.desc}
-                    avatar={course.avatar}
-                    name={course.instructor}
-                    role={course.role}
-                    company={course.company}
-                    rating={course.rating}
-                    review={course.reviews}
-                    price={course.price}
-                    onEdit={currentUser ? () => handleEdit(course) : null}
-                    onDelete={
-                      currentUser ? () => handleDelete(course.id) : null
-                    }
+              {/* video course */}
+              <section id="videocourse" className="w-full mt-10">
+                <div className="w-full md:flex flex-wrap justify-evenly gap-6">
+                  {sortedCourses.map((course) => (
+                    <VideoCard
+                      key={course.id}
+                      image={course.image}
+                      title={course.title}
+                      description={course.desc}
+                      avatar={course.avatar}
+                      name={course.instructor}
+                      role={course.role}
+                      company={course.company}
+                      rating={course.rating}
+                      review={course.reviews}
+                      price={course.price}
+                      onEdit={currentUser ? () => handleEdit(course) : null}
+                      onDelete={
+                        currentUser ? () => handleDelete(course.id) : null
+                      }
+                    />
+                  ))}
+                </div>
+              </section>
+
+              {/* newsletter */}
+              <section id="newsletter" className=" bg-black">
+                <div className="relative w-full h-auto flex items-center justify-center">
+                  <img
+                    src={`${import.meta.env.BASE_URL}newsletter.jpg`}
+                    alt="Spotlight"
+                    className="absolute inset-0 w-full h-full object-cover z-0"
                   />
-                ))}
-              </div>
-            </section>
-
-            {/* newsletter */}
-            <section id="newsletter" className=" bg-black">
-              <div className="relative w-full h-auto flex items-center justify-center">
-                <img
-                  src={`${import.meta.env.BASE_URL}newsletter.jpg`}
-                  alt="Spotlight"
-                  className="absolute inset-0 w-full h-full object-cover z-0"
-                />
-                <div className="absolute inset-0 bg-black/80 z-1"></div>
-                <div className="py-12 md:w-2/5 relative z-20 text-white text-center px-4">
-                  <h5 className="text-xl  text-lightgray mb-2">NEWSLETTER</h5>
-                  <h3 className="text-2xl font-bold mb-2">
-                    Mau Belajar Lebih Banyak?
-                  </h3>
-                  <p className="text-lg">
-                    Daftarkan dirimu untuk mendapatkan informasi terbaru dan
-                    penawaran spesial dari program-program terbaik
-                    videobelajar.id
-                  </p>
-                  <div className="flex justify-center mt-10">
-                    <div className="flex justify-center flex-wrap md:relative md:w-80">
-                      <input
-                        type="text"
-                        className="placeholder:text-center bg-white md:placeholder:text-start w-full p-2 md:pr-24 rounded-lg text-black placeholder:text-gray-500 border border-gray-300"
-                        placeholder="Masukkan emailmu"
-                      />
-                      <button className="justify-center flex w-full mt-6 md:w-auto md:m-0 md:absolute md:top-1/2 md:right-1 md:-translate-y-1/2 bg-yellow-500 px-3 py-1 rounded-lg font-bold text-white">
-                        Subscribe
-                      </button>
+                  <div className="absolute inset-0 bg-black/80 z-1"></div>
+                  <div className="py-12 md:w-2/5 relative z-20 text-white text-center px-4">
+                    <h5 className="text-xl  text-lightgray mb-2">NEWSLETTER</h5>
+                    <h3 className="text-2xl font-bold mb-2">
+                      Mau Belajar Lebih Banyak?
+                    </h3>
+                    <p className="text-lg">
+                      Daftarkan dirimu untuk mendapatkan informasi terbaru dan
+                      penawaran spesial dari program-program terbaik
+                      videobelajar.id
+                    </p>
+                    <div className="flex justify-center mt-10">
+                      <div className="flex justify-center flex-wrap md:relative md:w-80">
+                        <input
+                          type="text"
+                          className="placeholder:text-center bg-white md:placeholder:text-start w-full p-2 md:pr-24 rounded-lg text-black placeholder:text-gray-500 border border-gray-300"
+                          placeholder="Masukkan emailmu"
+                        />
+                        <button className="justify-center flex w-full mt-6 md:w-auto md:m-0 md:absolute md:top-1/2 md:right-1 md:-translate-y-1/2 bg-yellow-500 px-3 py-1 rounded-lg font-bold text-white">
+                          Subscribe
+                        </button>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            </section>
+              </section>
+            </div>
           </div>
         </div>
       </div>
