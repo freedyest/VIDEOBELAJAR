@@ -132,21 +132,23 @@ function Home() {
         <section id="videocourse" className="w-full mt-10">
           <div className="w-full md:flex flex-wrap justify-evenly gap-6">
             {filteredCourses.map((course) => (
-              <VideoCard
-                key={course.id}
-                image={course.image}
-                title={course.title}
-                description={course.desc}
-                avatar={course.avatar}
-                name={course.instructor}
-                role={course.role}
-                company={course.company}
-                rating={course.rating}
-                review={course.reviews}
-                price={course.price}
-                onEdit={currentUser ? () => handleEdit(course) : null}
-                onDelete={currentUser ? () => handleDelete(course.id) : null}
-              />
+              <div className="w-full md:w-[30%]">
+                <VideoCard
+                  key={course.id}
+                  image={course.image}
+                  title={course.title}
+                  description={course.desc}
+                  avatar={course.avatar}
+                  name={course.instructor}
+                  role={course.role}
+                  company={course.company}
+                  rating={course.rating}
+                  review={course.reviews}
+                  price={course.price}
+                  onEdit={currentUser ? () => handleEdit(course) : null}
+                  onDelete={currentUser ? () => handleDelete(course.id) : null}
+                />
+              </div>
             ))}
           </div>
         </section>

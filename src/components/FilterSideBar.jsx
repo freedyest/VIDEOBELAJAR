@@ -175,14 +175,6 @@ function FilterSidebar({ onFilterChange }) {
         )}
       </div>
       {/* debug */}
-
-      <pre className="text-xs text-gray-500 mt-4">
-        {JSON.stringify(
-          { harga: selectHarga, bidang: selectBidang, durasi: selectDurasi },
-          null,
-          2
-        )}
-      </pre>
     </div>
   );
 }

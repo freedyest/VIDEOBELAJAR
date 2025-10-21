@@ -127,12 +127,12 @@ function AllProduct() {
           </div>
         </section>
         <div className="w-full md:flex">
-          <div className="md:w-1/3">
+          <div className="md:w-1/4">
             {/* filter nav */}
             <FilterSidebar onFilterChange={handleFilterChange} />
           </div>
-          <div className="md:w-2/3 ">
-            <div className="flex  items-center gap-x-3 justify-between">
+          <div className="md:w-3/4 ">
+            <div className="flex  items-center gap-x-3 justify-between md:justify-end">
               <SortCourse />
               <SearchCourse />
             </div>
@@ -151,25 +151,27 @@ function AllProduct() {
 
               {/* video course */}
               <section id="videocourse" className="w-full mt-10">
-                <div className="w-full md:flex flex-wrap justify-evenly gap-6">
+                <div className="flex flex-wrap justify-evenly gap-6">
                   {sortedCourses.map((course) => (
-                    <VideoCard
-                      key={course.id}
-                      image={course.image}
-                      title={course.title}
-                      description={course.desc}
-                      avatar={course.avatar}
-                      name={course.instructor}
-                      role={course.role}
-                      company={course.company}
-                      rating={course.rating}
-                      review={course.reviews}
-                      price={course.price}
-                      onEdit={currentUser ? () => handleEdit(course) : null}
-                      onDelete={
-                        currentUser ? () => handleDelete(course.id) : null
-                      }
-                    />
+                    <div className="w-full md:w-[48%]">
+                      <VideoCard
+                        key={course.id}
+                        image={course.image}
+                        title={course.title}
+                        description={course.desc}
+                        avatar={course.avatar}
+                        name={course.instructor}
+                        role={course.role}
+                        company={course.company}
+                        rating={course.rating}
+                        review={course.reviews}
+                        price={course.price}
+                        onEdit={currentUser ? () => handleEdit(course) : null}
+                        onDelete={
+                          currentUser ? () => handleDelete(course.id) : null
+                        }
+                      />
+                    </div>
                   ))}
                 </div>
               </section>
